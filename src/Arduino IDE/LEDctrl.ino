@@ -4,7 +4,8 @@
  * 	
  *	Author: Abdullah Almarzouq (anm_e36@hotmail.com)
  *	LEDctrl Github: https://github.com/an36/LED-Controller-ESP32-Blynk
- *
+ *	
+ *  Finalized on: June 27, 2021
  */
 
 
