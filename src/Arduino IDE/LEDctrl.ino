@@ -20,19 +20,19 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "3STFe4rl_PevNZYxU82HLfj72BBJZKmU";
+char auth[] = "Your Auth Token";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Home-Marz2.4";
-char pass[] = "stopsmoking36";
+char ssid[] = "SSID";
+char pass[] = "PASSWORD";
 
 bool systemPower = false;
 
 
 /*<------------------------ NeoPixel LED Ring Macros and Global Variables ------------------------>*/
-#define LED_PIN    A1
-#define LED_COUNT  62
+#define LED_PIN    A1		//Designated pin to set addressable LEDs signal (LEDs' Data In)
+#define LED_COUNT  62		//Number of LEDs/Pixel in a strip
 #define MAX_RGB    255.0
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -167,7 +167,7 @@ void setup()
 
   /*<------------------------------- PDM Mic & I2S setup ------------------------------->*/
   i2s_driver_uninstall(I2S_NUM_0);
-  MicInit();                        //initialize I2S bus
+  MicInit();                        //initialize I2S bus (Comment this line if there's no Microphone)
   Serial.println("I2S driver installed.");
 }
 
