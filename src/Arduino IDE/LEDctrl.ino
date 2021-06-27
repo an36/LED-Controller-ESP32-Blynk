@@ -1,3 +1,13 @@
+/*	
+ *	LEDctrl.ino - ESP32 LED Controller Program that controls 
+ *				  LEDs using a Blynk Mobile App over WiFi.
+ * 	
+ *	Author: Abdullah Almarzouq (anm_e36@hotmail.com)
+ *	LEDctrl Github: https://github.com/an36/LED-Controller-ESP32-Blynk
+ *
+ */
+
+
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
