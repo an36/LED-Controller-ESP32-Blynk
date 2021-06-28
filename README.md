@@ -15,7 +15,7 @@ Note that there's also a MP34DT01-M PDM MEMS Microphone that is being used to ma
 * [5V 10A DC Power Supply](https://www.amazon.com/gp/product/B07CMM2BBR/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
 * [MP34DT01-M PDM MEMS Mic Breakout](https://www.adafruit.com/product/3492?gclid=CjwKCAjww-CGBhALEiwAQzWxOoJ1X5J6meE_1WD8ngq5gAuR29hyn-5CHDR53ZTJ1IfpZRNiy5qt3BoCwZ4QAvD_BwE)
 
-*NOTE:* Please take a look at the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.png) to see the LEDctrl project schematic which shows the appropriate wiring of each component mentioned just above.
+*NOTE:* Please take a look at the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.PNG) to see the LEDctrl project schematic which shows the appropriate wiring of each component mentioned just above.
 
 ---
 
@@ -66,7 +66,7 @@ char pass[] = "PASSWORD";
 #define LED_COUNT  62		//Number of LEDs/Pixel in a strip
 ```
 
-*Note that you don't have to change the designated pin (A1) if you've implemented the wiring in the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.png) diagram.*
+*Note that you don't have to change the designated pin (A1) if you've implemented the wiring in the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.PNG) diagram.*
 
 4. Change the designated DATA pin & Clock pin of the PDM MEM Microphone:
 
@@ -75,7 +75,7 @@ char pass[] = "PASSWORD";
 #define I2S_DATA_PIN   17          //I2S Data pin on ESP32 (GPIO 17)
 ```
 
-*Note that you don't have to change the designated pins (21 & 17) if you've implemented the wiring in the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.png) diagram.*
+*Note that you don't have to change the designated pins (21 & 17) if you've implemented the wiring in the [Schematic/LEDctrl_Schem.png](https://github.com/an36/LED-Controller-ESP32-Blynk/blob/master/Schematic/LEDctrl_Schem.PNG) diagram.*
 
 <br>
 
