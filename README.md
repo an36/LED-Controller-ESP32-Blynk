@@ -6,6 +6,11 @@ Note that there's also a MP34DT01-M PDM MEMS Microphone that is being used to ma
 ---
 
 ## Demo:
+Click [*here*](https://res.cloudinary.com/dhud5kifu/video/upload/v1625382280/demos/LEDctrl_Demo_mkrkv4.mp4) to view the LEDctrl demostration video.
+
+<br>
+
+[![](https://res.cloudinary.com/dhud5kifu/image/upload/v1625383367/demos/demo_snippet1_stulrx.png)](https://res.cloudinary.com/dhud5kifu/video/upload/v1625382280/demos/LEDctrl_Demo_mkrkv4.mp4)
 
 ---
 
