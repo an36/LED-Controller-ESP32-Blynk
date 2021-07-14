@@ -92,7 +92,7 @@ There has been some instances where the Mic's configuration (in software) might 
 
 With that being said, I recommend that you test out the Mic's input, using the provided code, to see if you are reading any faulty measurements.  After that, you can change the following flags and variables in the I2S configuration to obtain a better and more accurate reading:
 
-* In some cases, changing the DMA buffer size (`DMA_BUFF_LEN`) to `1024`, the Sample Rate (`SAMPLE_RATE`) to `8000`, and the DMA buffers count (`DMA_BUFF_CT`) to `4` may produce accurate results, however, I recommend that you try other valeus as well.
+* In some cases, changing the DMA buffer size (`DMA_BUFF_LEN`) to `1024`, the Sample Rate (`SAMPLE_RATE`) to `8000`, and the DMA buffers count (`DMA_BUFF_CT`) to `4` may produce more accurate results, however, I recommend that you try other values as well.
 
 ```C++
 const int DMA_DUFF_CT = 2;         //number of DMA buffer (minimum 2)
