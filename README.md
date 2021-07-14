@@ -84,3 +84,58 @@ char pass[] = "PASSWORD";
 <br>
 
 **Now**, compile and upload the LEDctrl.ino source code you've just edited onto your ESP32 Microcontroller by clicking the Arduino IDE *Compile & Upload* button/arrow.
+
+---
+
+## Notes about PDM Microphone's I2S Bus Configration:
+There has been some instances where the Mic's configuration (in software) might produce faulty measurements (i.e., reading a high volume spike/pulse even though there are no loud sound/noise in the background).  This could happen if you are using another I2S Microphone (beside [MP34DT01-M PDM MEMS Mic Breakout](https://www.adafruit.com/product/3492?gclid=CjwKCAjww-CGBhALEiwAQzWxOoJ1X5J6meE_1WD8ngq5gAuR29hyn-5CHDR53ZTJ1IfpZRNiy5qt3BoCwZ4QAvD_BwE)) and/or another Microcontroller (beside [Huzzah32](https://www.adafruit.com/product/3405)).
+
+With that being said, I recommend that you test out the Mic's input, using the provided code, to see if you are reading any faulty measurements.  After that, you can change the following flags and variables in the I2S configuration to obtain a better and more accurate reading:
+
+* In some cases, changing the DMA buffer size (`DMA_BUFF_LEN`) to `1024`, the Sample Rate (`SAMPLE_RATE`) to `8000`, and the DMA buffers count (`DMA_BUFF_CT`) to `4` may produce accurate results, however, I recommend that you try other valeus as well.
+
+```C++
+const int DMA_DUFF_CT = 2;         //number of DMA buffer (minimum 2)
+const int DMA_DUFF_LEN = 32;       //samples per DMA buffer (minimum 8)
+const int SAMPLE_RATE = 44100;     //44.1kHz
+```
+
+<br>
+
+* You might also want to change the number of bits per sample (`.bits_per_sample`) and the I2S channel format (`.channel_format`).  In some case, changing the bits per sample to `I2S_BITS_PER_SAMPLE_32BIT` and the channel format to `I2S_CHANNEL_FMT_ONLY_LEFT` (or `I2S_CHANNEL_FMT_ONLY_RIGHT`) may produce better results.  You can found these under the `MicInit()` function as shown below:
+
+```C++
+/*Initializes I2S bus to start reading Mic input*/
+void MicInit(){
+  esp_err_t err;
+  
+// The I2S config
+  i2s_config = {
+    .mode = i2s_mode_t(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_PDM),     // Receive, not transfer
+    .sample_rate = SAMPLE_RATE,                    
+    .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,                         //Number of bits per sample
+    .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,                         //Do not connect SEL pin.
+    .communication_format = i2s_comm_format_t(I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB),
+    .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,                             // Interrupt level 1
+    .dma_buf_count = DMA_DUFF_CT,                                         // number of buffers
+    .dma_buf_len = DMA_DUFF_LEN                                           // samples per buffer
+  };
+...
+...
+}
+```
+
+<br>
+
+***NOTE***: if you did change the `.bits_per_sample`, then I would suggest that you change the number of bits read by `i2s_read()` function.  The `i2s_read()` function-call can be found under `MicNormValue()` function, as shown below.  
+
+```C++
+float MicNormValue(){
+  // Read multiple samples at once
+  int err = i2s_read(I2S_PORT, &samples, sizeof(uint16_t)*DMA_DUFF_LEN, &num_bytes_read,  (500 / portTICK_RATE_MS));  //reads two bytes (16-bit)
+...
+...
+}
+```
+
+You can change the number of bits read by `i2s_read()` function by changing the third argument `sizeof(uint16_t)` to whicever desired size you picked.  I.e., if you've picked `I2S_BITS_PER_SAMPLE_32BIT` then you'd change the `sizeof(uint16_t)` to `sizeof(uint32_t)`.
