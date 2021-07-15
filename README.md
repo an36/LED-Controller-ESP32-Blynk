@@ -95,8 +95,8 @@ With that being said, I recommend that you test out the Mic's input, using the p
 * In some cases, changing the DMA buffer size (`DMA_BUFF_LEN`) to `1024`, the Sample Rate (`SAMPLE_RATE`) to `8000`, and the DMA buffers count (`DMA_BUFF_CT`) to `4` may produce more accurate results, however, I recommend that you try other values as well.
 
 ```C++
-const int DMA_DUFF_CT = 2;         //number of DMA buffer (minimum 2)
-const int DMA_DUFF_LEN = 32;       //samples per DMA buffer (minimum 8)
+const int DMA_BUFF_CT = 2;         //number of DMA buffer (minimum 2)
+const int DMA_BUFF_LEN = 32;       //samples per DMA buffer (minimum 8)
 const int SAMPLE_RATE = 44100;     //44.1kHz
 ```
 
@@ -117,8 +117,8 @@ void MicInit(){
     .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,                         //Do not connect SEL pin.
     .communication_format = i2s_comm_format_t(I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB),
     .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,                             // Interrupt level 1
-    .dma_buf_count = DMA_DUFF_CT,                                         // number of buffers
-    .dma_buf_len = DMA_DUFF_LEN                                           // samples per buffer
+    .dma_buf_count = DMA_BUFF_CT,                                         // number of buffers
+    .dma_buf_len = DMA_BUFF_LEN                                           // samples per buffer
   };
 ...
 ...
@@ -132,7 +132,7 @@ void MicInit(){
 ```C++
 float MicNormValue(){
   // Read multiple samples at once
-  int err = i2s_read(I2S_PORT, &samples, sizeof(uint16_t)*DMA_DUFF_LEN, &num_bytes_read,  (500 / portTICK_RATE_MS));  //reads two bytes (16-bit)
+  int err = i2s_read(I2S_PORT, &samples, sizeof(uint16_t)*DMA_BUFF_LEN, &num_bytes_read,  (500 / portTICK_RATE_MS));  //reads two bytes (16-bit)
 ...
 ...
 }
