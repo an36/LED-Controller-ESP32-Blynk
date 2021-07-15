@@ -76,8 +76,8 @@ bool CycleBlueTurn = false;
 i2s_config_t i2s_config;           //will hold i2s bus configuration
 i2s_pin_config_t pin_config;       //will hold i2s pin configuration
 
-const int DMA_DUFF_CT = 2;         //number of DMA buffer
-const int DMA_DUFF_LEN = 32;       //samples per DMA buffer
+const int DMA_BUFF_CT = 2;         //number of DMA buffer
+const int DMA_BUFF_LEN = 32;       //samples per DMA buffer
 const int SAMPLE_RATE = 44100;     //44.1kHz
 uint16_t samples[1024];            //will hold the samples read from DMA buffer(s)
 size_t num_bytes_read;             //will hold the number of bytes read from DMA buffer(s)
@@ -394,8 +394,8 @@ void MicInit(){
     .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,                         //Do not connect SEL pin.
     .communication_format = i2s_comm_format_t(I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB),
     .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,                             // Interrupt level 1
-    .dma_buf_count = DMA_DUFF_CT,                                         // number of buffers
-    .dma_buf_len = DMA_DUFF_LEN                                           // samples per buffer
+    .dma_buf_count = DMA_BUFF_CT,                                         // number of buffers
+    .dma_buf_len = DMA_BUFF_LEN                                           // samples per buffer
   };
 
   // The pin config as per the setup
@@ -426,7 +426,7 @@ void MicInit(){
 /* Return the Mic volume level, a float value */
 float MicNormValue(){
   // Read multiple samples at once
-  int err = i2s_read(I2S_PORT, &samples, sizeof(uint16_t)*DMA_DUFF_LEN, &num_bytes_read,  (500 / portTICK_RATE_MS));  //reads two bytes (16-bit)
+  int err = i2s_read(I2S_PORT, &samples, sizeof(uint16_t)*DMA_BUFF_LEN, &num_bytes_read,  (500 / portTICK_RATE_MS));  //reads two bytes (16-bit)
 
   if (err != ESP_OK) {  //if reading error
     Serial.printf("Failed rading i2s: %d\n", err);
